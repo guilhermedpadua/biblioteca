@@ -1,0 +1,92 @@
+{
+  "cron": {
+    "jobs": []
+  },
+  "settings": {
+    "api": {
+      "endpoint": "http://guilherme-padua-1.dev.netuno.org:20990//services/"
+    },
+    "public": {}
+  },
+  "smtp": {
+    "default": {
+      "enabled": true,
+      "host": "example.org",
+      "port": 465,
+      "ssl": true,
+      "from": "noreply@example.org",
+      "username": "noreply@example.org",
+      "password": "V3ryS3cur4Pa55w0rd!"
+    }
+  },
+  "name": "biblioteca",
+  "setup": {
+    "schema": {
+      "execution": true,
+      "auto_create": true
+    },
+    "scripts": {
+      "execution": true
+    },
+    "enabled": true
+  },
+  "language": "pt_PT",
+  "firebase": {
+    "app_name": "",
+    "database_url": "",
+    "key_file": "",
+    "listener_secret": ""
+  },
+  "locale": "pt_PT",
+  "remote": {},
+  "commands": [
+    {
+      "path": "ui",
+      "command": "npm run watch",
+      "install": "npm install --force",
+      "enabled": true
+    },
+    {
+      "path": "website",
+      "command": "npm run dev",
+      "install": "npm install --force",
+      "enabled": true
+    }
+  ],
+  "db": {
+    "default": {
+      "password": "",
+      "engine": "h2",
+      "port": "",
+      "host": "",
+      "name": "biblioteca",
+      "username": ""
+    }
+  },
+  "jwt": {
+    "enabled": true,
+    "secret": "JWTRandomSecureSecret",
+    "access_expires": 60,
+    "refresh_expires": 1440,
+    "algorithm": "HS512"
+  },
+  "cors": [
+    {
+      "enabled": true,
+      "origins": [
+        "*"
+      ]
+    }
+  ],
+  "openapi": {
+    "host": "http://guilherme-padua-1.dev.netuno.org:20990",
+    "basePath": "/services",
+    "schemes": [ "http" ],
+    "servers": [
+      {
+        "url": "http://guilherme-padua-1.dev.netuno.org:20990/services",
+        "description": "Local Development"
+      }
+    ]
+  }
+}

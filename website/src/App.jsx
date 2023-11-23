@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Routes as Switch, Route, useLocation, useNavigate, Link, Navigate } from "react-router-dom";
 
-import { ConfigProvider, Layout, Menu, Button } from 'antd';
-import { PieChartOutlined, LogoutOutlined, MenuOutlined, EditOutlined } from '@ant-design/icons';
+import { ConfigProvider, Layout, Menu, Button, notification } from 'antd';
+import { PieChartOutlined, LogoutOutlined, MenuOutlined, EditOutlined, BookOutlined } from '@ant-design/icons';
 import antLocale_ptPT from 'antd/lib/locale/pt_PT';
 
 import { Provider } from 'react-redux';
@@ -11,12 +11,16 @@ import { Store } from './redux/store';
 import classNames from 'classnames';
 
 import _auth from '@netuno/auth-client';
+import _service from "@netuno/service-client";
 import './common/Config';
 
 import HeaderUserInfo from './components/HeaderUserInfo';
 
 import LoginPage from './pages/Login';
 import Register from './pages/Register';
+import RegistrarLivro from './pages/RegistrarLivro';
+import RegistrarEmprestimo from './pages/RegistrarEmprestimo';
+import ListaLivros from './pages/ListaLivros';
 import ReservedArea from './pages/ReservedArea';
 import LoginCallback from './pages/LoginCallback';
 import RegisterCallback from './pages/RegisterCallback';
@@ -34,7 +38,7 @@ const NavWithAuthCheck = () => {
       <Navigate to="/reserved-area" />
     );
   }
-  return(
+  return (
     <Navigate to="/login" />
   );
 };
@@ -43,11 +47,40 @@ export default function App(props) {
   const [headerButtonMode, setHeaderButtonMode] = useState('login');
   const [collapsed, setCollapsed] = useState(false);
   const [sideMenuMobileMode, setSideMenuMobileMode] = useState(false);
+  const [userdata, setUserData] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
+    onUserInfo()
+  }, [userdata.group]);
+  
+  const onUserInfo = () => {
+    _service({
+      method: "GET",
+      url: "people",
+      success: (response) => {
+        if (response.json.result) {
+          setUserData(response.json.data);
+        } else {
+          notification["warning"]({
+            message: "Ocorreu um erro a carregar os dados",
+            description: response.json.error,
+          });
+        }
+      },
+      fail: () => {
+        notification["error"]({
+          message: "Ocorreu um erro a carregar os dados",
+          description:
+            "Ocorreu um erro a carregar os dados, por favor tente novamente.",
+        });
+      },
+    });
+  };
+  useEffect(() => {
+    onUserInfo()
     _auth.config({
       onLogout: () => {
         navigate('/login');
@@ -66,7 +99,6 @@ export default function App(props) {
   function onCollapse() {
     setCollapsed(!collapsed);
   }
-
   return (
     <ConfigProvider
       locale={antLocale_ptPT}
@@ -85,93 +117,124 @@ export default function App(props) {
       <Provider store={Store}>
         <Layout className={'page ' + classNames({ 'auth ': _auth.isLogged() }) + classNames({ 'collapsed ': collapsed })}>
           {_auth.isLogged() &&
-           <Sider
-             onBreakpoint={mobile => {
-               setSideMenuMobileMode(mobile);
-             }}
-             collapsedWidth={sideMenuMobileMode ? '0' : '80'}
-             breakpoint={"md"}
-             collapsible
-             collapsed={collapsed}
-             onCollapse={onCollapse}
-             trigger={<MenuOutlined />}
-             theme="light"
-           >
-             <div className="logo-container"><img alt="logo" src="/images/logo.png" /></div>
-             <Menu
-              defaultSelectedKeys={['1']}
-              mode="inline"
-              items={[
-                {
-                  key: "1",
-                  label: "Área Reservada",
-                  icon: <PieChartOutlined/>,
-                  className: "menu-item-reserved"
-                }
-              ]}
-            />
-           </Sider>
+            <Sider
+              onBreakpoint={mobile => {
+                setSideMenuMobileMode(mobile);
+              }}
+              collapsedWidth={sideMenuMobileMode ? '0' : '80'}
+              breakpoint={"md"}
+              collapsible
+              collapsed={collapsed}
+              onCollapse={onCollapse}
+              trigger={<MenuOutlined />}
+              theme="light"
+            >
+              <div className="logo-container"><img alt="logo" src="/images/logo.png" /></div>
+              {userdata.group === "people" && (
+                <Menu
+                  defaultSelectedKeys={['1']}
+                  mode="inline"
+                  items={[
+                    {
+                      key: "1",
+                      label:<Link to="/listalivros">Livros</Link>,
+                      icon: <PieChartOutlined />,
+                      className: "menu-item-reserved"
+                    },
+                    {
+                      key: "2",
+                      label: <Link to="/historico">Historico</Link>,
+                      icon: <BookOutlined />,
+                      className: "menu-item-my-books"
+                    }
+                  ]}
+                />
+              )}
+              {userdata.group !== "people" && (
+                <Menu
+                  defaultSelectedKeys={['1']}
+                  mode="inline"
+                  items={[
+                    {
+                      key: "1",
+                      label: <Link to="/registrarlivro">Livros</Link>,
+                      icon: <PieChartOutlined />,
+                      className: "menu-item-reserved"
+                    },
+                    {
+                      key: "2",
+                      label: <Link to="/registraremprestimo">Emprestimo</Link>,
+                      icon: <BookOutlined />,
+                      className: "menu-item-my-books"
+                    }
+                  ]}
+                />
+              )}
+            </Sider>
           }
           <Layout>
             <Header className={classNames({ 'auth ': _auth.isLogged() }) + classNames({ 'collapsed ': collapsed })}>
               {!_auth.isLogged() &&
-               <Link to="/" className="logo-container"><img alt="logo" src="/images/logo.png" /></Link>
+                <Link to="/" className="logo-container"><img alt="logo" src="/images/logo.png" /></Link>
               }
               {headerButtonMode === '/login' ?
-               <Link to="/register">
-                 <Button type="primary">Criar conta</Button>
-               </Link>
-               : headerButtonMode === '/register' ?
-               <Link to="/login">
-                 <Button type="primary">Iniciar sessão</Button>
-               </Link>
-               : _auth.isLogged() &&
-               <Menu
-                  mode="horizontal"
-                  items={[
-                    {
-                      key: "profile",
-                      label: <HeaderUserInfo />,
-                      className: "profile-menu",
-                      popupClassName: "profile-menu-popup",
-                      children: [
-                        {
+                <Link to="/register">
+                  <Button type="primary">Criar conta</Button>
+                </Link>
+                : headerButtonMode === '/register' ?
+                  <Link to="/login">
+                    <Button type="primary">Iniciar sessão</Button>
+                  </Link>
+                  : _auth.isLogged() &&
+                  <Menu
+                    mode="horizontal"
+                    items={[
+                      {
+                        key: "profile",
+                        label: <HeaderUserInfo />,
+                        className: "profile-menu",
+                        popupClassName: "profile-menu-popup",
+                        children: [
+                          {
                             key: "1",
                             label: (
-                                <Link to="/profile">
+                              <Link to="/profile">
                                 <EditOutlined />&nbsp;&nbsp;&nbsp;Editar Perfil
-                                </Link>
+                              </Link>
                             )
-                        },
-                        {
+                          },
+                          {
                             key: "2",
                             label: (
-                                <Button type="link" onClick={onLogout} danger>
+                              <Button type="link" onClick={onLogout} danger>
                                 <LogoutOutlined /> Terminar Sessão
-                                </Button>
+                              </Button>
                             )
-                        }
-                      ]
-                    }
-                  ]}
-               />
+                          }
+                        ]
+                      }
+                    ]}
+                  />
               }
             </Header>
             <Content className={classNames({ 'auth ': _auth.isLogged() })}>
               <Switch>
-                <Route exact path="/" element={<NavWithAuthCheck/>}/>
-                <Route path="/login/:provider" element={<LoginCallback/>} />
-                <Route path="/register/:provider" element={<RegisterCallback/>} />
-                <Route path="/reserved-area" element={<ReservedArea/>} />
-                <Route path="/profile" element={<Profile/>} />
-                <Route path="/login" element={<LoginPage/>} />
-                <Route path="/register" element={<Register/>} />
-                <Route path="/recovery" element={<Recovery/>} />
-                <Route path="*" element={<NotFound/>} />
+                <Route exact path="/" element={<NavWithAuthCheck />} />
+                <Route path="/login/:provider" element={<LoginCallback />} />
+                <Route path="/register/:provider" element={<RegisterCallback />} />
+                <Route path="/registrarlivro/" element={<RegistrarLivro />} />
+                <Route path="/registraremprestimo/" element={<RegistrarEmprestimo />} />
+                <Route path="/listalivros/" element={<ListaLivros />} />
+                <Route path="/reserved-area" element={<ReservedArea />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/recovery" element={<Recovery />} />
+                <Route path="*" element={<NotFound />} />
               </Switch>
             </Content>
             {!_auth.isLogged() &&
-             <Footer>© netuno.org {new Date().getFullYear()}</Footer>
+              <Footer>© netuno.org {new Date().getFullYear()}</Footer>
             }
           </Layout>
         </Layout>

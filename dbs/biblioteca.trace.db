@@ -1,0 +1,204 @@
+2023-10-28 13:44:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "null"; SQL statement:
+select  *  from  netuno_group where 1 = 1  and uid = 'null' order by name [22018-214]
+2023-10-28 13:58:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "alter table `bibliotecario` alter column `utilizador` type int [*]default 0;"; SQL statement:
+alter table `bibliotecario` alter column `utilizador` type int default 0; [42000-214]
+2023-10-28 13:59:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "alter table `bibliotecario` alter column `utilizador` type int [*]default 0;"; SQL statement:
+alter table `bibliotecario` alter column `utilizador` type int default 0; [42000-214]
+2023-10-29 18:22:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Invalid value "1" for parameter "parameterIndex" [90008-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:646)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.getInvalidValueException(DbException.java:298)
+	at org.h2.jdbc.JdbcPreparedStatement.setParameter(JdbcPreparedStatement.java:1395)
+	at org.h2.jdbc.JdbcPreparedStatement.setString(JdbcPreparedStatement.java:378)
+	at org.netuno.psamata.DB.a(SourceFile:691)
+	at org.netuno.psamata.DB.executeQuery(SourceFile:456)
+	at org.netuno.psamata.DB.query(SourceFile:419)
+	at org.netuno.tritao.resource.DB.query(SourceFile:1066)
+	at org.netuno.tritao.resource.DB.queryFirst(SourceFile:1198)
+	at org.netuno.tritao.resource.DB.queryFirst(SourceFile:1191)
+	at org.graalvm.truffle/com.oracle.truffle.host.HostMethodDesc$SingleMethod$MHBase.invokeHandle(HostMethodDesc.java:350)
+	at org.graalvm.truffle/com.oracle.truffle.host.GuestToHostCodeCache$1.executeImpl(GuestToHostCodeCache.java:96)
+	at org.graalvm.truffle/com.oracle.truffle.host.GuestToHostRootNode.execute(GuestToHostRootNode.java:80)
+	at jdk.internal.vm.compiler/org.graalvm.compiler.truffle.runtime.OptimizedCallTarget.executeRootNode(OptimizedCallTarget.java:709)
+	at jdk.internal.vm.compiler/org.graalvm.compiler.truffle.runtime.OptimizedCallTarget.callInlined(OptimizedCallTarget.java:513)
+	at jdk.internal.vm.compiler/org.graalvm.compiler.truffle.runtime.GraalRuntimeSupport.callInlined(GraalRuntimeSupport.java:240)
+	at org.graalvm.truffle/com.oracle.truffle.host.GuestToHostRootNode.guestToHostCall(GuestToHostRootNode.java:102)
+	at org.graalvm.truffle/com.oracle.truffle.host.HostMethodDesc$SingleMethod$MHBase.invokeGuestToHost(HostMethodDesc.java:386)
+	at org.graalvm.truffle/com.oracle.truffle.host.HostExecuteNode.doInvoke(HostExecuteNode.java:871)
+	at org.graalvm.truffle/com.oracle.truffle.host.HostExecuteNode.doOverloadedCached(HostExecuteNode.java:288)
+	at org.graalvm.truffle/com.oracle.truffle.host.HostExecuteNodeGen.executeAndSpecialize(HostExecuteNodeGen.java:241)
+	at org.graalvm.truffle/com.oracle.truffle.host.HostExecuteNodeGen.execute(HostExecuteNodeGen.java:97)
+	at org.graalvm.truffle/com.oracle.truffle.host.HostObject.invokeMember(HostObject.java:454)
+	at org.graalvm.truffle/com.oracle.truffle.host.HostObjectGen$InteropLibraryExports$Cached.invokeMemberNode_AndSpecialize(HostObjectGen.java:2696)
+	at org.graalvm.truffle/com.oracle.truffle.host.HostObjectGen$InteropLibraryExports$Cached.invokeMember(HostObjectGen.java:2678)
+	at org.graalvm.truffle/com.oracle.truffle.api.interop.InteropLibraryGen$CachedDispatch.invokeMember(InteropLibraryGen.java:8328)
+	at com.oracle.truffle.js.nodes.function.JSFunctionCallNode$ForeignInvokeNode.executeCall(JSFunctionCallNode.java:1534)
+	at com.oracle.truffle.js.nodes.function.JSFunctionCallNode.executeAndSpecialize(JSFunctionCallNode.java:306)
+	at com.oracle.truffle.js.nodes.function.JSFunctionCallNode.executeCall(JSFunctionCallNode.java:251)
+	at com.oracle.truffle.js.nodes.function.JSFunctionCallNode$InvokeNode.execute(JSFunctionCallNode.java:740)
+	at com.oracle.truffle.js.nodes.access.WritePropertyNode.executeAndSpecialize(WritePropertyNode.java:284)
+	at com.oracle.truffle.js.nodes.access.WritePropertyNode.executeVoid(WritePropertyNode.java:256)
+	at com.oracle.truffle.js.nodes.control.AbstractBlockNode.executeVoid(AbstractBlockNode.java:80)
+	at com.oracle.truffle.js.nodes.control.AbstractBlockNode.executeVoid(AbstractBlockNode.java:55)
+	at jdk.internal.vm.compiler/org.graalvm.compiler.truffle.runtime.OptimizedBlockNode.executeGeneric(OptimizedBlockNode.java:78)
+	at com.oracle.truffle.js.nodes.control.AbstractBlockNode.execute(AbstractBlockNode.java:75)
+	at com.oracle.truffle.js.nodes.control.AbstractBlockNode.executeGeneric(AbstractBlockNode.java:85)
+	at com.oracle.truffle.js.nodes.control.AbstractBlockNode.executeGeneric(AbstractBlockNode.java:55)
+	at jdk.internal.vm.compiler/org.graalvm.compiler.truffle.runtime.OptimizedBlockNode.executeGeneric(OptimizedBlockNode.java:80)
+	at com.oracle.truffle.js.nodes.control.AbstractBlockNode.execute(AbstractBlockNode.java:75)
+	at com.oracle.truffle.js.nodes.function.FunctionBodyNode.execute(FunctionBodyNode.java:73)
+	at com.oracle.truffle.js.nodes.function.FunctionRootNode.executeInRealm(FunctionRootNode.java:149)
+	at com.oracle.truffle.js.runtime.JavaScriptRealmBoundaryRootNode.execute(JavaScriptRealmBoundaryRootNode.java:88)
+	at jdk.internal.vm.compiler/org.graalvm.compiler.truffle.runtime.OptimizedCallTarget.executeRootNode(OptimizedCallTarget.java:709)
+	at jdk.internal.vm.compiler/org.graalvm.compiler.truffle.runtime.OptimizedCallTarget.profiledPERoot(OptimizedCallTarget.java:632)
+	at jdk.internal.vm.compiler/org.graalvm.compiler.truffle.runtime.OptimizedCallTarget.callBoundary(OptimizedCallTarget.java:565)
+	at jdk.internal.vm.compiler/org.graalvm.compiler.truffle.runtime.OptimizedCallTarget.doInvoke(OptimizedCallTarget.java:549)
+	at jdk.internal.vm.compiler/org.graalvm.compiler.truffle.runtime.OptimizedCallTarget.callDirect(OptimizedCallTarget.java:495)
+	at jdk.internal.vm.compiler/org.graalvm.compiler.truffle.runtime.OptimizedDirectCallNode.call(OptimizedDirectCallNode.java:68)
+	at com.oracle.truffle.js.lang.JavaScriptLanguage$ParsedProgramRoot.execute(JavaScriptLanguage.java:245)
+	at jdk.internal.vm.compiler/org.graalvm.compiler.truffle.runtime.OptimizedCallTarget.executeRootNode(OptimizedCallTarget.java:709)
+	at jdk.internal.vm.compiler/org.graalvm.compiler.truffle.runtime.OptimizedCallTarget.profiledPERoot(OptimizedCallTarget.java:632)
+	at jdk.internal.vm.compiler/org.graalvm.compiler.truffle.runtime.OptimizedCallTarget.callBoundary(OptimizedCallTarget.java:565)
+	at jdk.internal.vm.compiler/org.graalvm.compiler.truffle.runtime.OptimizedCallTarget.doInvoke(OptimizedCallTarget.java:549)
+	at jdk.internal.vm.compiler/org.graalvm.compiler.truffle.runtime.OptimizedCallTarget.callIndirect(OptimizedCallTarget.java:477)
+	at jdk.internal.vm.compiler/org.graalvm.compiler.truffle.runtime.OptimizedCallTarget.call(OptimizedCallTarget.java:458)
+	at org.graalvm.truffle/com.oracle.truffle.polyglot.PolyglotContextImpl.eval(PolyglotContextImpl.java:1470)
+	at org.graalvm.truffle/com.oracle.truffle.polyglot.PolyglotContextDispatch.eval(PolyglotContextDispatch.java:63)
+	at org.graalvm.sdk/org.graalvm.polyglot.Context.eval(Context.java:399)
+	at org.graalvm.sdk/org.graalvm.polyglot.Context.eval(Context.java:425)
+	at org.netuno.psamata.script.GraalRunner.eval(SourceFile:210)
+	at org.netuno.tritao.sandbox.JavaScriptSandbox.run(SourceFile:65)
+	at org.netuno.tritao.sandbox.SandboxManager.runScriptSandbox(SourceFile:390)
+	at org.netuno.tritao.sandbox.SandboxManager.runScript(SourceFile:298)
+	at org.netuno.tritao.sandbox.SandboxManager.runScript(SourceFile:223)
+	at org.netuno.tritao.Service.execute(SourceFile:288)
+	at org.netuno.tritao.Service._main(SourceFile:224)
+	at jdk.internal.reflect.GeneratedMethodAccessor243.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.netuno.proteu.Run.execute(SourceFile:119)
+	at org.netuno.proteu.DynamicURL.build(SourceFile:169)
+	at org.netuno.proteu.Enterprise.processRequest(SourceFile:417)
+	at org.netuno.proteu.Enterprise.service(SourceFile:489)
+	at javax.servlet.http.HttpServlet.service(SourceFile:750)
+	at org.eclipse.jetty.servlet.ServletHolder$NotAsync.service(SourceFile:1450)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(SourceFile:799)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(SourceFile:554)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(SourceFile:143)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SourceFile:600)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(SourceFile:127)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(SourceFile:235)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SourceFile:1624)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(SourceFile:233)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(SourceFile:1440)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(SourceFile:188)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(SourceFile:505)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SourceFile:1594)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(SourceFile:186)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(SourceFile:1355)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(SourceFile:141)
+	at org.eclipse.jetty.server.handler.HandlerList.handle(SourceFile:59)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(SourceFile:127)
+	at org.eclipse.jetty.server.Server.handle(SourceFile:516)
+	at org.eclipse.jetty.server.HttpChannel.lambda$handle$1(SourceFile:487)
+	at org.eclipse.jetty.server.HttpChannel.dispatch(SourceFile:732)
+	at org.eclipse.jetty.server.HttpChannel.handle(SourceFile:479)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(SourceFile:277)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(SourceFile:311)
+	at org.eclipse.jetty.io.FillInterest.fillable(SourceFile:105)
+	at org.eclipse.jetty.io.ChannelEndPoint$1.run(SourceFile:104)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.runTask(SourceFile:338)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.doProduce(SourceFile:315)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.tryProduce(SourceFile:173)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.run(SourceFile:131)
+	at org.eclipse.jetty.util.thread.ReservedThreadExecutor$ReservedThread.run(SourceFile:409)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(SourceFile:883)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.run(SourceFile:1034)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-11-20 23:34:23 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "usuario" not found; SQL statement:
+  SELECT *
+  FROM usuario [42102-214]
+2023-11-20 23:47:23 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "usuario" not found; SQL statement:
+
+  SELECT *
+  FROM usuario
+ [42102-214]
+2023-11-20 23:47:33 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "usuario" not found; SQL statement:
+
+  SELECT *
+  FROM usuario
+ [42102-214]
+2023-11-20 23:49:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "usuario" not found; SQL statement:
+
+  SELECT *
+  FROM usuario
+ [42102-214]
+2023-11-20 23:49:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "usuario" not found; SQL statement:
+
+  SELECT *
+  FROM usuario
+ [42102-214]
+2023-11-20 23:49:14 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "usuario" not found; SQL statement:
+
+  SELECT *
+  FROM usuario
+ [42102-214]
+2023-11-20 23:49:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "usuario" not found; SQL statement:
+
+  SELECT *
+  FROM usuario
+ [42102-214]
+2023-11-20 23:49:19 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "usuario" not found; SQL statement:
+
+  SELECT *
+  FROM usuario
+ [42102-214]
+2023-11-20 23:49:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "usuario" not found; SQL statement:
+
+  SELECT *
+  FROM usuario
+ [42102-214]
+2023-11-20 23:49:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "usuario" not found; SQL statement:
+
+  SELECT *
+  FROM usuario
+ [42102-214]
+2023-11-20 23:49:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "usuario" not found; SQL statement:
+
+  SELECT *
+  FROM usuario
+ [42102-214]
+2023-11-20 23:49:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "usuario" not found; SQL statement:
+
+  SELECT *
+  FROM usuario
+ [42102-214]
+2023-11-20 23:49:37 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "usuario" not found; SQL statement:
+
+  SELECT *
+  FROM usuario
+ [42102-214]
+2023-11-20 23:51:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "usuario" not found; SQL statement:
+
+  SELECT *
+  FROM usuario
+ [42102-214]
