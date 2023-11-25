@@ -21,6 +21,7 @@ import Register from './pages/Register';
 import RegistrarLivro from './pages/RegistrarLivro';
 import RegistrarEmprestimo from './pages/RegistrarEmprestimo';
 import ListaLivros from './pages/ListaLivros';
+import ListaAlunos from './pages/ListaAlunos';
 import ReservedArea from './pages/ReservedArea';
 import LoginCallback from './pages/LoginCallback';
 import RegisterCallback from './pages/RegisterCallback';
@@ -166,6 +167,12 @@ export default function App(props) {
                       label: <Link to="/registraremprestimo">Emprestimo</Link>,
                       icon: <BookOutlined />,
                       className: "menu-item-my-books"
+                    },
+                    {
+                      key: "3",
+                      label: <Link to="/listaalunos">Alunos</Link>,
+                      icon: <BookOutlined />,
+                      className: "menu-item-my-books"
                     }
                   ]}
                 />
@@ -179,7 +186,6 @@ export default function App(props) {
               }
               {headerButtonMode === '/login' ?
                 <Link to="/register">
-                  <Button type="primary">Criar conta</Button>
                 </Link>
                 : headerButtonMode === '/register' ?
                   <Link to="/login">
@@ -225,6 +231,7 @@ export default function App(props) {
                 <Route path="/registrarlivro/" element={<RegistrarLivro />} />
                 <Route path="/registraremprestimo/" element={<RegistrarEmprestimo />} />
                 <Route path="/listalivros/" element={<ListaLivros />} />
+                <Route path="/listaaLunos/" element={<ListaAlunos />} />
                 <Route path="/reserved-area" element={<ReservedArea />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/login" element={<LoginPage />} />

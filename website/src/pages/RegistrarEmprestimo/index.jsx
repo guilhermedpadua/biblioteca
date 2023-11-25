@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Space, Table, Button, Modal, Form, notification,  DatePicker, Select } from 'antd'
+import { Space, Table, Button, Modal, Form, notification, DatePicker, Select } from 'antd'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import _service from "@netuno/service-client";
 import './index.less';
@@ -10,6 +10,11 @@ function RegistrarEmprestimo() {
     const [alunos, setAlunos] = useState([]);
     const [livros, setLivros] = useState([]);
     const [emprestimo, setEmprestimo] = useState([]);
+    const [searchAlunos, setSearchAlunos] = useState('');
+    const [searchLivros, setSearchLivros] = useState('');
+    const [initialValues, setInitialValues] = useState({});
+
+    const [form] = Form.useForm()
 
     const columns = [
         {
@@ -40,16 +45,21 @@ function RegistrarEmprestimo() {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <EditOutlined style={{ color: 'blue' }}  />
-                    <a style={{ color: 'red' }}><DeleteOutlined /></a>
+                    <EditOutlined style={{ color: 'blue !important'  }} onClick={() => showModal(record)} />
+                    <a style={{ color: 'red !important' }}><DeleteOutlined /></a>
                 </Space>
             ),
         },
     ];
 
 
-    const showModal = () => {
+    const showModal = (record) => {
         setOpen(true);
+        // setInitialValues({
+        //     livro: record.livro_uid,
+        //     aluno: record.aluno.uid
+        // })
+        console.log("teste", record)
     };
 
     const handleOk = () => {
@@ -137,6 +147,13 @@ function RegistrarEmprestimo() {
         });
     };
 
+    const onSearchAlunos = (value) => {
+        setSearchAlunos(value);
+    };
+    const onSearchLivros = (value) => {
+        setSearchLivros(value);
+    };
+
     const criarEmprestimo = ({ aluno, entrega, vencimento, livro }) => {
         const entregaFormatada = entrega.format("YYYY-MM-DD")
         const vencimentoFormatada = vencimento.format("YYYY-MM-DD")
@@ -174,16 +191,24 @@ function RegistrarEmprestimo() {
             },
         });
     };
+    const onChange = (value) => {
+        console.log(`selected ${value}`);
+    };
+    const onSearch = (value) => {
+        console.log('search:', value);
+    };
+    const filterOption = (input, option) =>
+        (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
     return (
         <>
-            <div className="register-book">
+            <div className="registrar-emprestimo">
                 <Button type="primary" onClick={showModal}>
                     Registrar Emprestimo
                 </Button>
             </div>
 
             <Modal
-                title="Title"
+                title="Registrar Empréstimo"
                 open={open}
                 onOk={handleOk}
                 confirmLoading={confirmLoading}
@@ -192,12 +217,14 @@ function RegistrarEmprestimo() {
                 <Form
                     name="basic"
                     labelCol={{
-                        span: 6,
+                        span: 4,
                     }}
                     wrapperCol={{
-                        span: 24,
+                        span: 20,
                     }}
                     onFinish={criarEmprestimo}
+                    initialValues={initialValues}
+                    form={form}
                 >
                     {/* <Form.Item
                         label="Bibliotecario"
@@ -210,7 +237,12 @@ function RegistrarEmprestimo() {
                         name="aluno"
                     >
                         <Select
+                            showSearch
                             style={{ width: '100%' }}
+                            onSearch={onSearchAlunos}
+                            filterOption={(input, option) =>
+                                option.children.toLowerCase().includes(searchAlunos.toLowerCase())
+                            }
                         >
                             {alunos.map((aluno) => (
                                 <Select.Option value={aluno.uid} key={aluno.uid}>
@@ -223,7 +255,11 @@ function RegistrarEmprestimo() {
                         label="Livro"
                         name="livro"
                     >
-                        <Select style={{ width: '100%' }}>
+                        <Select
+                            showSearch
+                            onSearch={onSearchAlunos}
+                            style={{ width: '100%' }}
+                        >
                             {livros.map(livro => (
                                 <Select.Option key={livro.uid} value={livro.uid}>
                                     {livro.titulo}
@@ -245,10 +281,7 @@ function RegistrarEmprestimo() {
                         <DatePicker />
                     </Form.Item>
                     <Form.Item
-                        wrapperCol={{
-                            offset: 4,
-                            span: 18,
-                        }}
+                        className='button'
                     >
                         <Button type="primary" htmlType="submit">
                             Registrar

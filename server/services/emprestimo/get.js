@@ -6,6 +6,7 @@ const dbEmprestimos = _db.query(`
 const data = dbEmprestimos.map((emprestimo) => {
     const livroId = emprestimo.getString("livro_id");
     const alunoId = emprestimo.getString("aluno_id");
+    _log.info("id aluno:", alunoId)
     const dbLivro = _db.queryFirst(`
         SELECT *
         FROM livros
@@ -24,8 +25,7 @@ const data = dbEmprestimos.map((emprestimo) => {
         .set("uid", emprestimo.getString("uid"))
         .set("aluno", {
             name: dbAluno.getString("name"),
-            cpf: dbAluno.getString("cpf")
-            
+            cpf: dbAluno.getString("cpf")          
         })
         .set("livro", dbLivro.getString("titulo"))
         .set("entrega", emprestimo.getString("entrega"))

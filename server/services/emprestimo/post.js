@@ -2,7 +2,7 @@ const aluno = _req.getString("aluno");
 const entrega = _req.getString("entrega");
 const vencimento = _req.getString("vencimento");
 const livro = _req.getString("livro");
-
+_log.info("aluno", aluno)
 const dbLivros = _db.queryFirst(`
     SELECT *
     FROM livros
@@ -38,25 +38,26 @@ if (!dbEmprestimo) {
         _val.map().set("result", false)
     );
 }
-dbAluno.set("titulo", dbLivros.getString('titulo'))
-dbAluno.set("entrega", entrega)
-dbAluno.set("vencimento", vencimento)
+
+// dbAluno.set("titulo", dbLivros.getString('titulo'))
+// dbAluno.set("entrega", entrega)
+// dbAluno.set("vencimento", vencimento)
 
 
-const smtp = _smtp.init();
+// const smtp = _smtp.init();
 
-smtp.to = dbAluno.getString('email');
-smtp.subject = "Emprestimo realizado com sucesso";
-smtp.html = _template.getOutput("email/requisition", dbAluno);
+// smtp.to = dbAluno.getString('email');
+// smtp.subject = "Emprestimo realizado com sucesso";
+// smtp.html = _template.getOutput("email/requisition", dbAluno);
 
-smtp.attachment(
-  "logo.png",
-  "image/png",
-  _app.file("public/images/logo.png"),
-  "logo"
-);
-_log.info("email enviado", dbAluno.getString('email'))
-smtp.send();
+// smtp.attachment(
+//   "logo.png",
+//   "image/png",
+//   _app.file("public/images/logo.png"),
+//   "logo"
+// );
+// _log.info("email enviado", dbAluno.getString('email'))
+// smtp.send();
 
 _out.json(_val.map().set("result", true))
 
