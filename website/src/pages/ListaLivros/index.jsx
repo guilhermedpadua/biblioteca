@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Space, Table, Tag, Button, Modal, Form, Input, notification, InputNumber } from 'antd'
+import { Space, Table,  Input, notification,  } from 'antd'
 import _service from "@netuno/service-client";
 import './index.less';
 function RegistroLivro() {
   const [livros, setLivros] = useState([]);
   const [searchText, setSearchText] = useState('');
-
+  
   const columns = [
     {
       title: 'Titulo',
@@ -32,7 +32,7 @@ function RegistroLivro() {
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          <a>Disponivel</a>
+          {record.esta_emprestado ? <span style={{ color: 'red' }}>Indisponível</span> : <span style={{ color: 'green' }}>Disponível</span>}
         </Space>
       ),
     },

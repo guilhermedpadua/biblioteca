@@ -5,8 +5,9 @@ import _service from "@netuno/service-client";
 import './index.less';
 function RegistroLivro() {
     const [open, setOpen] = useState(false);
-    const [confirmLoading, setConfirmLoading] = useState(false); 
+    const [confirmLoading, setConfirmLoading] = useState(false);
     const [livros, setLivros] = useState([]);
+    const [editData, setEditData] = useState(null)
 
     const columns = [
         {
@@ -35,7 +36,7 @@ function RegistroLivro() {
             render: (_, record) => (
                 <Space size="middle">
                     <EditOutlined style={{ color: 'blue' }} onClick={() => handleEdit(record)} />
-                    <DeleteOutlined style={{ color: 'red' }} onClick={() => handleDelete(record)} />
+                    <a onClick={() => deleteLivro(record.uid)} style={{ color: 'red' }}><DeleteOutlined /></a>
                 </Space>
             ),
         },
@@ -43,31 +44,70 @@ function RegistroLivro() {
 
     useEffect(() => {
         onLivros()
-      }, []);
+    }, []);
 
+    const handleEdit = (record) => {
+        setEditData(record); // Define os dados do livro a serem editados
+        setOpen(true); // Abre a modal para edição
+    };
     const onLivros = () => {
         _service({
-          method: "GET",
-          url: "livros",
-          success: (response) => {
-            if (response.json.result) {
-              setLivros(response.json.data);
-            } else {
-              notification["warning"]({
-                message: "Ocorreu um erro a carregar os dados",
-                description: response.json.error,
-              });
-            }
-          },
-          fail: () => {
-            notification["error"]({
-              message: "Ocorreu um erro a carregar os dados",
-              description:
-                "Ocorreu um erro a carregar os dados, por favor tente novamente.",
-            });
-          },
+            method: "GET",
+            url: "livros",
+            success: (response) => {
+                if (response.json.result) {
+                    setLivros(response.json.data);
+                } else {
+                    notification["warning"]({
+                        message: "Ocorreu um erro a carregar os dados",
+                        description: response.json.error,
+                    });
+                }
+            },
+            fail: () => {
+                notification["error"]({
+                    message: "Ocorreu um erro a carregar os dados",
+                    description:
+                        "Ocorreu um erro a carregar os dados, por favor tente novamente.",
+                });
+            },
         });
     };
+
+    const deleteLivro = (uid) => {
+        _service({
+            url: `livros`,
+            method: "DELETE",
+            data: { uid },
+            success: (response) => {
+                const data = response.json;
+                if (data.result) {
+                    notification.success({
+                        description: "Livro excluído com sucesso.",
+                    });
+                    onLivros();
+                } else {
+                    notification.error({
+                        description: "Não foi possível excluir o livro.",
+                    });
+                }
+            },
+            fail: (e) => {
+                console.log("Service failed:", e);
+
+                if (e.status === 404) {
+                    notification.error({
+                        description: "Livro não encontrado.",
+                    });
+                } else {
+                    notification.error({
+                        description: "Não foi possível excluir o livro",
+                    });
+                }
+            },
+        });
+    };
+
 
     const createCategory = ({ titulo, autor, editora, ano }) => {
         _service({
@@ -86,11 +126,11 @@ function RegistroLivro() {
                         description: "Não foi possível registrar o livro.",
                     });
                 }
-    
+
             },
             fail: (e) => {
                 console.log("Service failed:", e);
-    
+
                 if (e.status === 409) {
                     notification.error({
                         description: "Este item já existe.",

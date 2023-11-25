@@ -70,17 +70,16 @@ export default function App(props) {
           });
         }
       },
-      fail: () => {
-        notification["error"]({
-          message: "Ocorreu um erro a carregar os dados",
-          description:
-            "Ocorreu um erro a carregar os dados, por favor tente novamente.",
-        });
-      },
+      // fail: () => {
+      //   notification["error"]({
+      //     message: "Ocorreu um erro a carregar os dados",
+      //     description:
+      //       "Ocorreu um erro a carregar os dados, por favor tente novamente.",
+      //   });
+      // },
     });
   };
   useEffect(() => {
-    onUserInfo()
     _auth.config({
       onLogout: () => {
         navigate('/login');
@@ -89,6 +88,7 @@ export default function App(props) {
   }, []);
 
   useEffect(() => {
+    onUserInfo()
     setHeaderButtonMode(location.pathname);
   }, [location]);
 

@@ -6,6 +6,7 @@ const dbAluno = _db.query(`
 const data = dbAluno.map((aluno) =>
   _val
     .map()
+    .set("uid", aluno.getString("uid"))
     .set("name", aluno.getString("name"))
     .set("cpf", aluno.getString("cpf"))
 );
