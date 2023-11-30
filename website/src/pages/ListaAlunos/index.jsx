@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Space, Table,  Input, notification,  } from 'antd'
+import { Space, Table, Input, notification, } from 'antd'
 import _service from "@netuno/service-client";
 import './index.less';
 function RegistroLivro() {
   const [alunos, setAlunos] = useState([]);
   const [searchText, setSearchText] = useState('');
-  
+
   const columns = [
     {
       title: 'Nome',
@@ -32,7 +32,11 @@ function RegistroLivro() {
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          {record.tem_pendencia ? <span style={{ color: 'red' }}>Não</span> : <span style={{ color: 'green' }}>Sim</span>}
+          {record.tem_pendencia === true || record.tem_pendencia === "true" ? (
+            <span style={{ color: 'red' }}>Não</span>
+          ) : (
+            <span style={{ color: 'green' }}>Sim</span>
+          )}
         </Space>
       ),
     },
@@ -67,7 +71,7 @@ function RegistroLivro() {
   };
 
   const handleSearch = (value) => {
-    setSearchText(value); 
+    setSearchText(value);
 
     if (value === '') {
       buscarAlunos();
@@ -82,7 +86,7 @@ function RegistroLivro() {
       setAlunos(filteredalunos);
     }
   };
-  console.log(alunos)
+  console.log("pend", alunos)
   return (
     <>
       <Input.Search

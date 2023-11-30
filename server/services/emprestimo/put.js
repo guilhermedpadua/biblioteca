@@ -3,7 +3,7 @@ const entrega = _req.getString("entrega");
 const vencimento = _req.getString("vencimento");
 const livro = _req.getString("livro");
 const uid = _req.getUUID("uid")
-
+_log.info("uid",uid)
 const dbEmprestimo = _db.queryFirst(`
   SELECT * FROM emprestimo WHERE uid = ?
 `, uid)

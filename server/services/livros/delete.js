@@ -5,6 +5,7 @@ const dblivros = _db.queryFirst(`
     FROM livros 
     WHERE uid = ? 
 `, uid);
+
 const dbEmprestimo = _db.queryFirst(`
     SELECT *
     FROM emprestimo 

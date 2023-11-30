@@ -6,7 +6,7 @@ const dbEmprestimos = _db.query(`
 const data = dbEmprestimos.map((emprestimo) => {
     const livroId = emprestimo.getString("livro_id");
     const alunoId = emprestimo.getString("aluno_id");
-    _log.info("id aluno:", alunoId)
+
     const dbLivro = _db.queryFirst(`
         SELECT *
         FROM livros
@@ -32,10 +32,6 @@ const data = dbEmprestimos.map((emprestimo) => {
         .set("vencimento", emprestimo.getString("vencimento"));
 });
 
-dbEmprestimos.map(element => {
-    _log.info('aluno:', element.getString('aluno_id'));
-});
-
 
 _out.json(
     _val
@@ -44,5 +40,5 @@ _out.json(
         .set("data", data)
 );
 
-// Log das informações completas
+
 _log.info("data:", data);

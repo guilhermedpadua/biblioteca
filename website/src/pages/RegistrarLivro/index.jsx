@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Space, Table, Tag, Button, Modal, Form, Input, notification, InputNumber } from 'antd'
+import { Space, Table, Tag, Button, Modal, Form, Input, notification, InputNumber, Row, Col } from 'antd'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import _service from "@netuno/service-client";
 import './index.less';
@@ -196,39 +196,55 @@ function RegistroLivro() {
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                 >
+                    <Row >
+                        <Col lg={24} md={24} sm={24} xs={24}>
+                                <Form.Item
+                                label="titulo"
+                                    name="titulo"
+                                    labelCol={24}
+                                >
+                                    <Input placeholder='Titulo' />
+                                </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row >
+                        <Col lg={24} md={24} sm={24} xs={24}>
+                                <Form.Item
+                                label="Autor"
+                                    name="autor"
+                                    labelCol={24}
+                                >
+                                    <Input placeholder='Autor' />
+                                </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row >
+                        <Col lg={24} md={24} sm={24} xs={24}>
+                                <Form.Item
+                                    label="Editora"
+                                    name="editora"
+                                    labelCol={24}
+                                >
+                                    <Input placeholder='Editora' />
+                                </Form.Item>
+                        </Col>
+                    </Row>
                     <Form.Item
-                        label="Titulo"
-                        name="titulo"
-                    >
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Autor"
-                        name="autor"
-                    >
-                        <Input />
-                    </Form.Item>
-                    <Form.Item
-                        label="Ano"
+                        label="Ano de Publicação"
                         name="ano"
+                        className='ano-publicacao'
+                        labelCol={24}
                     >
-                        <InputNumber />
+                        <InputNumber placeholder='Ano de Publicação'  style={{width: 250}}/>
                     </Form.Item>
-                    <Form.Item
-                        label="Editora"
-                        name="editora"
-                    >
-                        <Input />
-                    </Form.Item>
-
                     <Form.Item
                         wrapperCol={{
                             offset: 4,
                             span: 18,
                         }}
+                        className='button-book'
                     >
-                        <Button type="primary" htmlType="submit">
+                        <Button type="primary" htmlType="submit" onClick={handleOk}>
                             Registrar
                         </Button>
                     </Form.Item>

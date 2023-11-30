@@ -1,6 +1,7 @@
 {
   "cron": {
-    "jobs": []
+    "jobs": [
+    ]
   },
   "settings": {
     "api": {
@@ -11,12 +12,12 @@
   "smtp": {
     "default": {
       "enabled": true,
-      "host": "example.org",
+      "host": "serua.veks.net",
       "port": 465,
       "ssl": true,
-      "from": "noreply@example.org",
-      "username": "noreply@example.org",
-      "password": "V3ryS3cur4Pa55w0rd!"
+      "from": "academy-test@netuno.org",
+      "username": "academy-test@netuno.org",
+      "password": "gDj1pwQ5T#0#"
     }
   },
   "name": "biblioteca",
