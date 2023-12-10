@@ -1,11 +1,5 @@
 ![Logo](website/public/images/logo.png)
 
-# ReAuthKit
-
-A ready to use boilerplate solution for user registration, authentication, profile editing and reserved area using [Netuno](https://www.netuno.org/), [JWT](https://jwt.io/), [ReactJS](https://reactjs.org/), [Redux](https://redux.js.org/) and [Ant Design](https://ant.design/).
-
-![Billboard](https://raw.githubusercontent.com/netuno-org/reauthkit/main/docs/billboard.png)
-
 ## Installation
 
 #### Netuno
@@ -137,13 +131,11 @@ Some screenshots below.
 ### Desktop
 
 ##### Login
-![Login](https://raw.githubusercontent.com/netuno-org/reauthkit/main/docs/prinstscreens/desktop/login.png)
-##### Register
-![Register](https://raw.githubusercontent.com/netuno-org/reauthkit/main/docs/prinstscreens/desktop/registration.png)
+![Login](website/public/images/desktop.png)
 ##### Reserved Area
-![Reserved Area](https://raw.githubusercontent.com/netuno-org/reauthkit/main/docs/prinstscreens/desktop/reserved-area.png)
+![Reserved Area](ebsite/public/images/areareservada.png)
 ##### Edit Profile
-![Edit Profile](https://raw.githubusercontent.com/netuno-org/reauthkit/main/docs/prinstscreens/desktop/edit-profile.png)
+![Edit Profile](ebsite/public/images/editarperfil.png)
 
 ### Mobile
 
