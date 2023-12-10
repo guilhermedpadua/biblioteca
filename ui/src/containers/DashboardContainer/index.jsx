@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
-import MyButton from "../../components/MyButton";
+import MyButton from "../../public/images/";
+
 
 import "./index.less";
 
@@ -19,8 +20,9 @@ function DashboardContainer() {
 
   return (
     <div className="my-dashboard">
-      <div ref={refButton} className="my-dashboard__button">
-        <MyButton text={`ReactJS ⚡ Ant.Design 👉 Click me! ${counter}`} onClick={onClick} />
+      
+      <div>
+      <h1>Seja Bem vindo a sua area de gestão</h1>
       </div>
     </div>
   );

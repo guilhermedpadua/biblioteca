@@ -8,8 +8,9 @@ const dbEmprestimo = _db.queryFirst(`
   SELECT * FROM emprestimo WHERE uid = ?
 `, uid)
 
-const emprestimoData = _val.map()
+if (dbEmprestimo) {
 
+    const emprestimoData = _val.map()
     .set("aluno_id", aluno)
     .set("entrega", entrega)
     .set("vencimento", vencimento)
@@ -22,7 +23,16 @@ const emprestimoData = _val.map()
         emprestimoData
     )
 
-_out.json(
-    _val.map()
-        .set("result", true)
-)
+    _out.json(
+        _val.map()
+            .set("result", true)
+    )
+} else {
+    _res.status(409);
+    _out.json(
+        _val.map().set("result", false)
+    );
+}
+
+
+

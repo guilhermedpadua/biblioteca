@@ -33,7 +33,8 @@ function Profile({loggedUserInfo, loggedUserInfoReloadAction}) {
         profileForm.current.setFieldsValue({
           name: loggedUserInfo?.name,
           username: loggedUserInfo?.username,
-          email: loggedUserInfo?.email
+          email: loggedUserInfo?.email,
+          telefone: loggedUserInfo?.telefone,
         });
       }
       if (loggedUserInfo.avatar) {
@@ -44,7 +45,7 @@ function Profile({loggedUserInfo, loggedUserInfoReloadAction}) {
 
   function onFinish(values) {
     setSubmitting(true);
-    const { name, username, password, email } = values;
+    const { name, username, password, email, telefone } = values;
     _service({
       method: 'PUT',
       url: 'people',
@@ -53,6 +54,7 @@ function Profile({loggedUserInfo, loggedUserInfoReloadAction}) {
         username,
         password,
         email,
+        telefone,
         avatar: profileAvatar?.current?.getImage()
       },
       success: (response) => {
@@ -133,7 +135,7 @@ function Profile({loggedUserInfo, loggedUserInfoReloadAction}) {
             <Input disabled={submitting} maxLength={25} />
           </Form.Item>
           <Form.Item
-            label="Nome de utilizador"
+            label="Nome de Usuário"
             name="username"
             rules={[
               { required: true, message: 'Insira o seu nome.' },
@@ -148,6 +150,15 @@ function Profile({loggedUserInfo, loggedUserInfoReloadAction}) {
             rules={[
               { type: 'email', message: 'O e-mail inserido não é válido.' },
               { required: true, message: 'Insira o e-mail.' }
+            ]}
+          >
+            <Input disabled={submitting} maxLength={250} />
+          </Form.Item>
+          <Form.Item
+            label="Telefone"
+            name="telefone"
+            rules={[
+              { required: true, message: 'Insira o telefone' }
             ]}
           >
             <Input disabled={submitting} maxLength={250} />

@@ -139,14 +139,8 @@ export default function App(props) {
                     {
                       key: "1",
                       label:<Link to="/listalivros">Livros</Link>,
-                      icon: <PieChartOutlined />,
-                      className: "menu-item-reserved"
-                    },
-                    {
-                      key: "2",
-                      label: <Link to="/historico">Historico</Link>,
                       icon: <BookOutlined />,
-                      className: "menu-item-my-books"
+                      className: "menu-item-reserved"
                     }
                   ]}
                 />
@@ -159,7 +153,7 @@ export default function App(props) {
                     {
                       key: "1",
                       label: <Link to="/registrarlivro">Livros</Link>,
-                      icon: <PieChartOutlined />,
+                      icon: <BookOutlined />,
                       className: "menu-item-reserved"
                     },
                     {

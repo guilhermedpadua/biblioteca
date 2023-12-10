@@ -58,9 +58,19 @@ WHERE ng.code = 'people'
 
 // );
 
+const hoje = new Date();
 
 
 const data = dbAluno.map((aluno) => {
+  const vencimento = new Date(aluno.getString("vencimento_emprestimo"));
+  const falta = vencimento.getTime() - hoje.getTime();
+
+  let pendencia = false;
+  if (vencimento < hoje) {
+    pendencia = true;
+  }
+
+ 
   return _val
     .map()
     .set("uid", aluno.getString("uid"))
@@ -68,6 +78,7 @@ const data = dbAluno.map((aluno) => {
     .set("cpf", aluno.getString("cpf"))
     .set("email", aluno.getString("email"))
     .set("telefone", aluno.getString("telefone"))
+    .set("pendencia", pendencia);
 }
 
 );

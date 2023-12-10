@@ -19,17 +19,18 @@ const data = dbEmprestimos.map((emprestimo) => {
         WHERE id = ?::int
     `, alunoId);
 
-
     return _val
         .map()
         .set("uid", emprestimo.getString("uid"))
         .set("aluno", {
+            uid: dbAluno.getString("uid"),
             name: dbAluno.getString("name"),
             cpf: dbAluno.getString("cpf")          
         })
         .set("livro", dbLivro.getString("titulo"))
         .set("entrega", emprestimo.getString("entrega"))
         .set("vencimento", emprestimo.getString("vencimento"));
+       
 });
 
 
@@ -41,4 +42,3 @@ _out.json(
 );
 
 
-_log.info("data:", data);

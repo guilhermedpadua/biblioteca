@@ -3,6 +3,10 @@ import { Space, Table, Button, Modal, Form, notification, DatePicker, Select, Ro
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import _service from "@netuno/service-client";
 import './index.less';
+import moment from 'moment';
+import dayjs from 'dayjs';
+import { parseISO, isValid } from 'date-fns';
+
 
 function RegistrarEmprestimo() {
     const [open, setOpen] = useState(false);
@@ -11,14 +15,13 @@ function RegistrarEmprestimo() {
     const [livros, setLivros] = useState([]);
     const [emprestimo, setEmprestimo] = useState([]);
     const [searchAlunos, setSearchAlunos] = useState('');
-    const [searchLivros, setSearchLivros] = useState('');
-    const [linhaSelecionada, setLinhaSelecionada] = useState(null);
-    const [initialValues, setInitialValues] = useState(null);
     const [userData, setUserData] = useState(false);
-
-
+    const [editData, setEditData] = useState(null)
+    const [modalKey, setModalKey] = useState(0);
     const [form] = Form.useForm()
-    console.lo
+    const dateFormat = 'YYYY/MM/DD';
+
+
     const columns = [
         {
             title: 'Livro',
@@ -60,18 +63,35 @@ function RegistrarEmprestimo() {
         labelCol: { span: 'hide' }
     };
 
-    const showModalEdit = (registro) => {
-        setLinhaSelecionada(registro);
-        setOpen(true);
-        console.log("Dados selecionados para edição:", registro);
+    const handleEdit = (record) => {
+            setEditData({
+                ...record,
+                aluno: {
+                    uid: record.aluno.uid,
+                    name: record.aluno.name,
+                    cpf: record.aluno.cpf,
+                },
+            });
+           setOpen(true);   
     };
+       
+    useEffect(() => {
+        if (editData) {
+            // Formatar as datas antes de preencher o formulário
+            const entregaFormatted = moment(editData.entrega, 'YYYY-MM-DD');
+            const vencimentoFormatted = moment(editData.vencimento, 'YYYY-MM-DD');
+            form.setFieldsValue({
+                ...editData,
+                entrega: entregaFormatted,
+                vencimento: vencimentoFormatted,
+            });
+        }
+    }, [editData, form]);
+
     const showModal = () => {
         setOpen(true);
     };
-    useEffect(() => {
-        setInitialValues(linhaSelecionada);
-        console.log("Dados na modal de edição:", linhaSelecionada);
-    }, [linhaSelecionada]);
+
 
     const handleOk = () => {
         setConfirmLoading(true);
@@ -84,7 +104,8 @@ function RegistrarEmprestimo() {
     const handleCancel = () => {
         console.log('Clicked cancel button');
         setOpen(false);
-        setLinhaSelecionada(null)
+        setModalKey((prevKey) => prevKey + 1);
+        setEditData(null)
     };
 
     useEffect(() => {
@@ -114,27 +135,27 @@ function RegistrarEmprestimo() {
     };
     const onUserInfo = () => {
         _service({
-          method: "GET",
-          url: "people",
-          success: (response) => {
-            if (response.json.result) {
-              setUserData(response.json.data);
-            } else {
-              notification["warning"]({
-                message: "Ocorreu um erro a carregar os dados",
-                description: response.json.error,
-              });
-            }
-          },
-          // fail: () => {
-          //   notification["error"]({
-          //     message: "Ocorreu um erro a carregar os dados",
-          //     description:
-          //       "Ocorreu um erro a carregar os dados, por favor tente novamente.",
-          //   });
-          // },
+            method: "GET",
+            url: "people",
+            success: (response) => {
+                if (response.json.result) {
+                    setUserData(response.json.data);
+                } else {
+                    notification["warning"]({
+                        message: "Ocorreu um erro a carregar os dados",
+                        description: response.json.error,
+                    });
+                }
+            },
+            // fail: () => {
+            //   notification["error"]({
+            //     message: "Ocorreu um erro a carregar os dados",
+            //     description:
+            //       "Ocorreu um erro a carregar os dados, por favor tente novamente.",
+            //   });
+            // },
         });
-      };
+    };
 
     const onLivros = () => {
         _service({
@@ -187,7 +208,6 @@ function RegistrarEmprestimo() {
     const onSearchAlunos = (value) => {
         setSearchAlunos(value);
     };
-
     const criarEmprestimo = ({ aluno, entrega, vencimento, livro }) => {
         const entregaFormatada = entrega.format("YYYY-MM-DD")
         const vencimentoFormatada = vencimento.format("YYYY-MM-DD")
@@ -232,12 +252,11 @@ function RegistrarEmprestimo() {
     };
 
     const editarEmprestimo = ({ aluno, entrega, vencimento, livro }) => {
-        const entregaFormatada = entrega.format("YYYY-MM-DD")
-        const vencimentoFormatada = vencimento.format("YYYY-MM-DD")
+        const emprestimoEditado = { aluno, entrega, vencimento, livro, uid: editData.uid }
         _service({
             url: "/emprestimo",
             method: "PUT",
-            data: { aluno, entrega: entregaFormatada, vencimento: vencimentoFormatada, livro },
+            data: emprestimoEditado,
             success: (response) => {
                 const data = response.json;
                 if (data.result) {
@@ -285,6 +304,7 @@ function RegistrarEmprestimo() {
                         description: "Não foi possível remover o emprestimo.",
                     });
                 }
+                BuscarEmprestimo();
             },
             fail: (e) => {
                 console.log("Service failed:", e);
@@ -301,6 +321,16 @@ function RegistrarEmprestimo() {
             },
         });
     };
+    const onFinish = (values) => {
+        if (editData) {
+            // Se existem dados de edição, chama a função de edição
+            editarEmprestimo(values);
+        } else {
+            // Se não, chama a função de criação
+            criarEmprestimo(values);
+        }
+    };
+console.log("editdata", editData)
 
     return (
         <>
@@ -311,7 +341,8 @@ function RegistrarEmprestimo() {
             </div>
 
             <Modal
-                title={linhaSelecionada ? "Editar Empréstimo" : "Registrar Empréstimo"}
+                key={modalKey}
+                title={editData ? "Editar Empréstimo" : "Registrar Empréstimo"}
                 open={open}
                 onOk={handleOk}
                 confirmLoading={confirmLoading}
@@ -325,14 +356,8 @@ function RegistrarEmprestimo() {
                     wrapperCol={{
                         span: 20,
                     }}
-                    onFinish={(valores) => {
-                        if (linhaSelecionada) {
-                            editarEmprestimo(valores);
-                        } else {
-                            criarEmprestimo(valores);
-                        }
-                    }}
-                    initialValues={{remember: true}}
+                    onFinish={onFinish}
+                    initialValues={editData}
                     form={form}
                 >
                     <Form.Item
@@ -344,7 +369,7 @@ function RegistrarEmprestimo() {
                             <Form.Item
                                 name="aluno"
                                 label="Aluno"
-                                {...layout.labelCol}
+                                labelCol={24}
                             >
                                 <Select
                                     showSearch
@@ -363,57 +388,59 @@ function RegistrarEmprestimo() {
                             </Form.Item>
                         </Col>
                     </Row>
-                <Row >
-                    <Col  lg={24} md={24} sm={24} xs={24}>
-                        <Form.Item
-                        label="Livro"
-                            name="livro"
-                        >
-                            <Select
-                                showSearch
-                                onSearch={onSearchAlunos}
-                                placeholder={"Livro"}
+                    <Row >
+                        <Col lg={24} md={24} sm={24} xs={24}>
+                            <Form.Item
+                                label="Livro"
+                                name="livro"
+                                labelCol={24}
                             >
-                                {livros.map(livro => (
-                                    <Select.Option key={livro.uid} value={livro.uid}>
-                                        {livro.titulo}
-                                    </Select.Option>
-                                ))}
-                            </Select>
-                        </Form.Item>
-                    </Col>
-                </Row>
+                                <Select
+                                    showSearch
+                                    onSearch={onSearchAlunos}
+                                    placeholder={"Livro"}
+                                >
+                                    {livros.map(livro => (
+                                        <Select.Option key={livro.uid} value={livro.uid}>
+                                            {livro.titulo}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                    </Row>
 
 
-                <Row {...layout.rowGutter}>
-                    <Col lg={24} md={24} sm={24} xs={24}>
-                        <Form.Item
-                        label="Entrega"
-                            name="entrega"
-                            {...layout.labelCol}
-                        >
-                            <DatePicker placeholder={"Data Entrega"} />
-                        </Form.Item>
-                    </Col>
-                    <Col lg={24} md={24} sm={24} xs={24}>
-                        <Form.Item
-                        label="Vencimento"
-                            name="vencimento"
-                            {...layout.labelCol}
-                        >
-                            <DatePicker  placeholder={"Vencimento"}/>
-                        </Form.Item>
-                    </Col>
-                </Row>
-                <Form.Item
-                    className='button'
-                >
-                    <Button type="primary" htmlType="submit">
-                        Registrar
-                    </Button>
-                </Form.Item>
-            </Form>
-        </Modal >
+                    <Row {...layout.rowGutter}>
+                        <Col lg={24} md={24} sm={24} xs={24}>
+                            <Form.Item
+                                label="Entrega"
+                                name="entrega"
+                                labelCol={24}
+                            >
+                                    <DatePicker  style={{ width: '200px' }} />
+
+                            </Form.Item>
+                        </Col>
+                        <Col lg={24} md={24} sm={24} xs={24}>
+                            <Form.Item
+                                label="Vencimento"
+                                name="vencimento"
+                                labelCol={24}
+                            >
+                                <DatePicker placeholder={"Vencimento"}  style={{ width: '200px' }}/>
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Form.Item
+                        className='button'
+                    >
+                        <Button type="primary" htmlType="submit">
+                            Registrar
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </Modal >
 
             <Table columns={columns} dataSource={emprestimo} />
         </>

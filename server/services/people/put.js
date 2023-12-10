@@ -2,6 +2,7 @@
 const name = _req.getString("name")
 const username = _req.getString("username")
 const email = _req.getString("email")
+const telefone = _req.getString("telefone")
 const password = _req.getString("password")
 const avatar = _req.getFile("avatar")
 
@@ -14,6 +15,7 @@ userData
   .set("name", name)
   .set("user", username)
   .set("mail", email)
+  .set("telefone", telefone)
 
 if (password.length > 0) {
   userData.set("pass", password)

@@ -77,7 +77,7 @@ _form.createComponentIfNotExists(
 	.set("tdheight", 0)
 	.set("tdwidth", 0)
 	.set("type", "date")
-	.set("uid", "1523e083-782d-4f32-9c10-7af08eb14c18")
+	.set("uid", "1ca37f28-4c7d-4cf9-ba0f-69afe3920109")
 	.set("user_id", 0)
 	.set("whenedit", true)
 	.set("whenexport", true)
@@ -87,7 +87,7 @@ _form.createComponentIfNotExists(
 	.set("whenview", true)
 	.set("width", 0)
 	.set("x", 1)
-	.set("y", 3)
+	.set("y", 6)
 )
 _form.createComponentIfNotExists(
 	"105b0a3c-012d-4b67-9a19-10065c992742",

@@ -32,10 +32,10 @@ function RegistroLivro() {
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          {record.tem_pendencia === true || record.tem_pendencia === "true" ? (
-            <span style={{ color: 'red' }}>Não</span>
-          ) : (
+          {record.pendencia === true  ? (
             <span style={{ color: 'green' }}>Sim</span>
+          ) : (
+            <span style={{ color: 'red' }}>Não</span>
           )}
         </Space>
       ),

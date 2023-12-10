@@ -20,7 +20,7 @@ function ReservedArea({loggedUserInfo}) {
       content = (
         <>
           <Title level={2}>Olá {loggedUserInfo.name}!</Title>
-          <Title level={3} style={{ marginTop: 0 }}>Bem-vindo(a) à sua Área Reservada!</Title>
+          <Title level={3} style={{ marginTop: 0 }}> Seja Bem-vindo(a) </Title>
           <img alt="reserved-area" src={"/images/reserved-area.png"} />
         </>
       );
