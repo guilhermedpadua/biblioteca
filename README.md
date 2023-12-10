@@ -133,9 +133,9 @@ Some screenshots below.
 ##### Login
 ![Login](website/public/images/desktop.png)
 ##### Reserved Area
-![Reserved Area](ebsite/public/images/areareservada.png)
+![Reserved Area](website/public/images/areareservada.png)
 ##### Edit Profile
-![Edit Profile](ebsite/public/images/editarperfil.png)
+![Edit Profile](website/public/images/editarperfil.png)
 
 ### Mobile
 
