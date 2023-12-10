@@ -1,4 +1,4 @@
-![Logo](https://raw.githubusercontent.com/netuno-org/reauthkit/main/docs/logo.svg)
+![Logo](website/public/images/logo.png)
 
 # ReAuthKit
 
