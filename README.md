@@ -6,9 +6,9 @@
 
 [Follow the steps here](https://doc.netuno.org/docs/en/installation/)
 
-#### ReAuthKit App
+#### Biblioteca App
 
-Clone this project to `(Netuno Root directory)/apps/reauthkit/`.
+Clone this project to `(Netuno Root directory)/apps/Biblioteca/`.
 
 ## Configuration
 
@@ -46,7 +46,7 @@ Clone this project to `(Netuno Root directory)/apps/reauthkit/`.
 
 In the Netuno root directory run
 
-`./netuno server app=reauthkit`
+`./netuno server app=Biblioteca`
 
 and it should start both the back-end and the front-end server.
 
@@ -136,17 +136,3 @@ Some screenshots below.
 ![Reserved Area](website/public/images/areareservada.png)
 ##### Edit Profile
 ![Edit Profile](website/public/images/editarperfil.png)
-
-### Mobile
-
-Login  |  Registration
-:-------------------------:|:-------------------------:
-![Login](https://raw.githubusercontent.com/netuno-org/reauthkit/main/docs/prinstscreens/mobile/login.png)  |  ![Register](https://raw.githubusercontent.com/netuno-org/reauthkit/main/docs/prinstscreens/mobile/registration.png)
-
-Reserved Area  |  Profile + Avatar 1
-:-------------------------:|:-------------------------:
-![Reserved Area](https://raw.githubusercontent.com/netuno-org/reauthkit/main/docs/prinstscreens/mobile/reserved-area.png)  |  ![Profile + Avatar 1](https://raw.githubusercontent.com/netuno-org/reauthkit/main/docs/prinstscreens/mobile/edit-profile-1.png)
-
-Profile + Avatar 2 |  Profile Edit
-:-------------------------:|:-------------------------:
-![Profile + Avatar 2](https://raw.githubusercontent.com/netuno-org/reauthkit/main/docs/prinstscreens/mobile/edit-profile-2.png)  |  ![Profile Edit](https://raw.githubusercontent.com/netuno-org/reauthkit/main/docs/prinstscreens/mobile/edit-profile-3.png)
