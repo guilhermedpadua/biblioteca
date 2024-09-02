@@ -1,78 +1,82 @@
-![Logo](website/public/images/logo.png)
+![Logotipo](website/public/images/logo.png)
 
-## Installation
+## Sistema para Gerenciamento de Biblioteca
+
+Este projeto foi realizado na disciplina de Projeto e Desenvolvimento de Software da Universidade Federal do Maranhão. Consiste em um sistema para gerenciamento de biblioteca com três formas de usuário: administrador, aluno e bibliotecário. O back-end foi desenvolvido utilizando a tecnologia Netuno e o banco de dados H2, enquanto o front-end foi construído com React e Ant Design (AntD).
+
+## Instalação
 
 #### Netuno
 
-[Follow the steps here](https://doc.netuno.org/docs/en/installation/)
+[Siga as etapas aqui](https://doc.netuno.org/docs/en/installation/)
 
-#### Biblioteca App
+#### Aplicativo Biblioteca
 
-Clone this project to `(Netuno Root directory)/apps/Biblioteca/`.
+Clone esse projeto para `(Netuno Root directory)/apps/Biblioteca/`.
 
-## Configuration
+## Configuração
 
-> The following process is oriented to Linux development environments with a few notes also destined to Microsoft Windows development environments.
+> O processo a seguir é voltado para ambientes de desenvolvimento Linux, com algumas observações também destinadas a ambientes de desenvolvimento Microsoft Windows.
 
-1. Copy the app sample configuration file by running (in the app root directory):
+1. Copie o arquivo de configuração de amostra do aplicativo executando (no diretório raiz do aplicativo):
 
-    * `cp config/sample.json config/_development.json` (for a development environment)
+    * `cp config/sample.json config/_development.json` (para um ambiente de desenvolvimento)
 
-    * `cp config/sample.json config/_production.json` (for a production environment)
+    * `cp config/sample.json config/_production.json` (para um ambiente de produção)
 
-    and adjust the `_development.json` and/or `_production_.json` file accordingly to your environment.
+    e ajuste o arquivo `_development.json` e/ou `_production_.json` de acordo com seu ambiente.
 
-> You can change the application name by changing the folder name and the `name` configuration parameter.
+> Você pode alterar o nome do aplicativo alterando o nome da pasta e o parâmetro de configuração `name`.
 
-2. You'll need to configure an SMTP connection for the password recovery feature to function properly, [learn how to do it here.](https://doc.netuno.org/docs/en/academy/server/services/sending-emails/)
+2. Você precisará configurar uma conexão SMTP para que o recurso de recuperação de senha funcione corretamente, [saiba como fazer isso aqui] (https://doc.netuno.org/docs/en/academy/server/services/sending-emails/)
 
-3. You'll need to configure a PostgreSQL database type connection for this app to work properly, [learn how to do it here.](https://doc.netuno.org/docs/en/academy/server/database/psql/)
+3. Você precisará configurar uma conexão do tipo banco de dados PostgreSQL para que esse aplicativo funcione corretamente [saiba como fazer isso aqui] (https://doc.netuno.org/docs/en/academy/server/database/psql/).
 
-4. Locate and replace the word `JWTRandomSecureSecret` by a secret code, as random as possible, since this is what ensures the security of users' credentials. For example: `#J&Az+7(8d+k/9q]` . [Recommended Secure Code Generation tool.](https://passwordsgenerator.net/)
+4. Localize e substitua a palavra `JWTRandomSecureSecret` por um código secreto, o mais aleatório possível, pois é isso que garante a segurança das credenciais dos usuários. Por exemplo: `#J&Az+7(8d+k/9q]` . [Ferramenta recomendada de geração de código seguro](https://passwordsgenerator.net/)
 
-5. You'll also need to configure the website sample config file located in `website/src/config/`:
+5. Você também precisará configurar o arquivo de configuração de amostra do site localizado em `website/src/config/`:
 
-    1. Change the configurations inside `_development_config.json` and `_production_config.json` for development and production environments respectively.
+    1. Altere as configurações dentro de `_development_config.json` e `_production_config.json` para os ambientes de desenvolvimento e produção, respectivamente.
 
-    2. Inside the same folder run `cp _development_config.json config.json` to create the configuration file based on the development configuration.
+    2. Dentro da mesma pasta, execute `cp _development_config.json config.json` para criar o arquivo de configuração com base na configuração de desenvolvimento.
 
-    > To create a production ready build just run `bash build.sh` in `(app root directory)/website/` which will momentarily create a `config.json` based on the production configuration file and when it's finished it should revert back to the development configuration.
+    > Para criar uma compilação pronta para produção, basta executar `bash build.sh` em `(diretório raiz do aplicativo)/website/`, que criará momentaneamente um `config.json` com base no arquivo de configuração de produção e, quando terminar, deverá reverter para a configuração de desenvolvimento.
 
-    > There's also a `build.bat` present in `(app root directory)/website/` for Microsoft Windows development environments.
+    > Há também um `build.bat` presente em `(diretório raiz do aplicativo)/website/` para ambientes de desenvolvimento do Microsoft Windows.
 
-6. To configure OpenAPI definition look at `openapi` settings, [learn how to do it here.](https://doc.netuno.org/docs/en/academy/server/services/openapi/)
+6. Para configurar a definição do OpenAPI, consulte as configurações do `openapi` [saiba como fazer isso aqui] (https://doc.netuno.org/docs/en/academy/server/services/openapi/).
 
-## Running
+## Execução
 
-In the Netuno root directory run
+No diretório raiz do Netuno, execute
 
 `./netuno server app=Biblioteca`
 
-and it should start both the back-end and the front-end server.
+e ele deverá iniciar o servidor back-end e o front-end.
 
-> The first run may take a while due to the installation of frontend dependencies.
+> A primeira execução pode demorar um pouco devido à instalação das dependências do front-end.
 
-By default, the Netuno back office will be available in:
+Por padrão, o back office do Netuno estará disponível em:
 
 - http://localhost:9000/
 
-The OpenAPI will be in:
+O OpenAPI estará em:
 
 - http://localhost:9000/services/_openapi
 
-And the front-end (restricted website) will start in:
+E o front-end (site restrito) será iniciado em:
 
 - http://localhost:3000/
 
-## Style
+## Estilo
 
-Indications for the general styling of the restricted website.
+Indicações para o estilo geral do site restrito.
 
-### Dark
+### Escuro
 
-Here's how the dark style can be applied.
+Veja como o estilo escuro pode ser aplicado.
 
-Adjust the variables in `website/src/craco.config.js`:
+Ajuste as variáveis em `website/src/craco.config.js`:
 
 ```
   ...
@@ -85,22 +89,22 @@ Adjust the variables in `website/src/craco.config.js`:
   ...
 ```
 
-> [Full Ant.Design variables list.](https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less)
+> [Lista completa de variáveis do Ant.Design] (https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less)
 
-In the `website/src/styles/variables.less` adjust the Ant.Design theme import, comment out the default theme (light) and uncomment the dark one:
+Em `website/src/styles/variables.less`, ajuste a importação do tema do Ant.Design, comente o tema padrão (claro) e descomente o tema escuro:
 
 ```
-//@import '~antd/lib/style/themes/default.less';
-@import '~antd/lib/style/themes/dark.less';
+//@importar '~antd/lib/style/themes/default.less';
+@importar '~antd/lib/style/themes/dark.less';
 ```
 
-In `website/src/App.js` look for the `Sider` component tag and remove the `theme="light"` attribute.
+Em `website/src/App.js`, procure a tag de componente `Sider` e remova o atributo `theme=“light”`.
 
-### Light
+### Luz
 
-Here's how the clear style can be applied.
+Veja como o estilo claro pode ser aplicado.
 
-Adjust the variables in `website/src/craco.config.js`:
+Ajuste as variáveis em `website/src/craco.config.js`:
 
 ```
   ...
@@ -113,20 +117,20 @@ Adjust the variables in `website/src/craco.config.js`:
   ...
 ```
 
-> [Full Ant.Design variables list.](https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less)
+> [Lista completa de variáveis do Ant.Design] (https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less)
 
-In the `website/src/styles/variables.less` adjust the Ant.Design theme import, comment out the dark theme and uncomment the default (light):
+Em `website/src/styles/variables.less`, ajuste a importação do tema do Ant.Design, comente o tema escuro e descomente o padrão (claro):
 
 ```
-@import '~antd/lib/style/themes/default.less'; 
-//@import '~antd/lib/style/themes/dark.less';
+@importar '~antd/lib/style/themes/default.less'; 
+//@importar '~antd/lib/style/themes/dark.less';
 ```
 
-In `website/src/App.js` look for the `Sider` component tag and add the `theme="light"` attribute.
+Em `website/src/App.js`, procure a tag de componente `Sider` e adicione o atributo `theme=“light”`.
 
 ## Screenshots
 
-Some screenshots below.
+Algumas capturas de tela abaixo.
 
 ### Desktop
 
